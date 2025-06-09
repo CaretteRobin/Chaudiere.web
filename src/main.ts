@@ -1,3 +1,5 @@
+// import '../public/styles/index.css';
+
 import { renderHome } from '@/views/home';
 import { registerRoute, navigateTo } from '@/router';
 
@@ -6,6 +8,7 @@ const app = document.getElementById('app')!;
 registerRoute('/', () => renderHome(app));
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log(location.pathname);
   registerRoute(location.pathname, () => renderHome(app));
   navigateTo(location.pathname);
 });

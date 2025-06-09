@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+//@ts-ignore
 import tailwindcss from "@tailwindcss/vite";
 import path from 'path';
 
@@ -12,4 +13,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  assetsInclude: ['**/*.hbs'],
 });
