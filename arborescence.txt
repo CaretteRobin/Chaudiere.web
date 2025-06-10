@@ -1,0 +1,42 @@
+.
+├── arborescence.txt
+├── index.html
+├── package.json
+├── package-lock.json
+├── public
+│   └── styles
+│       └── index.css
+├── src
+│   ├── api
+│   │   ├── categories.ts
+│   │   └── events.ts
+│   ├── components
+│   │   ├── categoryList.hbs
+│   │   ├── eventCard.hbs
+│   │   ├── footer.hbs
+│   │   └── header.hbs
+│   ├── main.ts
+│   ├── router
+│   │   └── index.ts
+│   ├── storage
+│   │   └── favorites.ts
+│   ├── templates
+│   │   ├── layout.hbs
+│   │   └── pages
+│   │       ├── categories.hbs
+│   │       ├── eventDetails.hbs
+│   │       └── home.hbs
+│   ├── types
+│   │   ├── category.ts
+│   │   ├── event.ts
+│   │   └── handlebars.d.ts
+│   ├── utils
+│   │   └── templateUtils.ts
+│   ├── views
+│   │   ├── categories.ts
+│   │   └── home.ts
+│   └── vite-env.d.ts
+├── tsconfig.json
+└── vite.config.ts
+
+13 directories, 27 files
