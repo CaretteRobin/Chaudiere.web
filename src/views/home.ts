@@ -36,7 +36,8 @@ export async function renderHome(container: HTMLElement) {
 
   // Insérer les cartes dans la page d'accueil
   const pageContent = homePageTemplate({ eventsContent: eventsHtml });
-
+      
+  console.log(container.innerHTML);
   // Insérer tout dans le layout
   container.innerHTML = layoutTemplate({ content: pageContent });
 }
