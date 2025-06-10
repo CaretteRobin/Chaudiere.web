@@ -1,6 +1,7 @@
 // import '../public/styles/index.css';
 
 import { renderHome } from '@/views/home';
+import { renderCategories } from '@/views/categories';
 import { registerRoute, navigateTo } from '@/router';
 import {renderEventDetail} from "@/views/eventDetails";
 
@@ -15,8 +16,10 @@ registerRoute('/evenements/{id}', (params) => {
   renderEventDetail(app, eventId);
 });
 
+registerRoute('/categories', () => renderCategories(app));
+
+
 document.addEventListener('DOMContentLoaded', () => {
-  console.log(location.pathname);
   handleInitialRoute();
 });
 

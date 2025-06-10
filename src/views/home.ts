@@ -12,7 +12,7 @@
 //   const pageContent = homePage({ eventsContent: eventsHtml });
 //
 //   // Insérer tout dans le layout
-//   app.innerHTML = layoutTemplate({ content: pageContent });
+//   container.innerHTML = layoutTemplate({ content: pageContent });
 // }
 
 
@@ -22,21 +22,24 @@ import { loadTemplate, initializePartials } from '@/utils/templateUtils';
 export async function renderHome(app: HTMLElement) {
   // Initialiser les partiels
   await initializePartials();
-
-  // Récupérer les données
-  const events = await fetchEvents();
-
-  // Charger les templates
-  const eventCardTemplate = await loadTemplate('/src/components/eventCard.hbs');
-  const homePageTemplate = await loadTemplate('/src/templates/pages/home.hbs');
   const layoutTemplate = await loadTemplate('/src/templates/layout.hbs');
 
-  // Générer le HTML des cartes d'événements
+  let events= [];
+  try {
+    events = await fetchEvents();
+  } catch (error) {
+    console.error('Erreur lors du chargement des événements:', error);
+
+    app.innerHTML = layoutTemplate({ content: '<p>Impossible de charger les événements.</p>' });
+    return;
+  }
+
+  const eventCardTemplate = await loadTemplate('/src/components/eventCard.hbs');
+  const homePageTemplate = await loadTemplate('/src/templates/pages/home.hbs');
+
   const eventsHtml = events.map(event => eventCardTemplate(event)).join('');
 
-  // Insérer les cartes dans la page d'accueil
   const pageContent = homePageTemplate({ eventsContent: eventsHtml });
 
-  // Insérer tout dans le layout
   app.innerHTML = layoutTemplate({ content: pageContent });
 }
