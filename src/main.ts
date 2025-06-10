@@ -3,15 +3,31 @@
 import { renderHome } from '@/views/home';
 import { renderCategories } from '@/views/categories';
 import { registerRoute, navigateTo } from '@/router';
+import {renderEventDetail} from "@/views/eventDetails";
 
 const app = document.getElementById('app')!;
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log(location.pathname);
-  registerRoute(location.pathname, () => renderHome(app));
-  registerRoute('/categories', () => renderCategories(app));
-  navigateTo(location.pathname);
+// Routes statiques
+registerRoute('/', () => renderHome(app));
+
+// Route dynamique avec paramètre
+registerRoute('/evenements/{id}', (params) => {
+  const eventId: string | undefined = params?.id;
+  renderEventDetail(app, eventId);
 });
+
+registerRoute('/categories', () => renderCategories(app));
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  handleInitialRoute();
+});
+
+function handleInitialRoute() {
+  // Au lieu d'enregistrer une route spécifique pour le chemin initial
+  // on utilise navigateTo qui utilisera les routes déjà enregistrées
+  navigateTo(location.pathname);
+}
 
 document.addEventListener('click', (e) => {
   const target = e.target as HTMLElement;
