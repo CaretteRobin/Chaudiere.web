@@ -4,5 +4,6 @@ export interface Event {
   // artiste: string;
   start_date: string;
   category: string;
+  url: string;
   // image?: string;
 }
