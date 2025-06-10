@@ -1,8 +1,8 @@
 export interface Event {
-  id: number;
-  titre: string;
-  artiste: string;
-  date: string;
-  categorie: string;
-  image?: string;
+  // id: number;
+  title: string;
+  // artiste: string;
+  start_date: string;
+  category: string;
+  // image?: string;
 }
