@@ -3,7 +3,7 @@
 // import homePage from '@/templates/pages/home.hbs';
 // import layoutTemplate from '@/templates/layout.hbs';
 //
-// export async function renderHome(container: HTMLElement) {
+// export async function renderHome(app: HTMLElement) {
 //   const events = await fetchEvents();
 //   // Créer le contenu des cartes d'événements
 //   const eventsHtml = events.map(event => eventCardTemplate(event)).join('');
@@ -12,14 +12,14 @@
 //   const pageContent = homePage({ eventsContent: eventsHtml });
 //
 //   // Insérer tout dans le layout
-//   container.innerHTML = layoutTemplate({ content: pageContent });
+//   app.innerHTML = layoutTemplate({ content: pageContent });
 // }
 
 
 import { fetchEvents } from '@/api/events';
 import { loadTemplate, initializePartials } from '@/utils/templateUtils';
 
-export async function renderHome(container: HTMLElement) {
+export async function renderHome(app: HTMLElement) {
   // Initialiser les partiels
   await initializePartials();
 
@@ -38,5 +38,5 @@ export async function renderHome(container: HTMLElement) {
   const pageContent = homePageTemplate({ eventsContent: eventsHtml });
 
   // Insérer tout dans le layout
-  container.innerHTML = layoutTemplate({ content: pageContent });
+  app.innerHTML = layoutTemplate({ content: pageContent });
 }
