@@ -1,14 +1,19 @@
 const KEY = 'favorites';
 
-export function getFavorites(): number[] {
+// event id's are UUIDs
+
+export function getFavorites(): string[] {
   return JSON.parse(localStorage.getItem(KEY) || '[]');
 }
 
-export function toggleFavorite(eventId: number) {
+export function toggleFavorite(eventId: string) {
   const current = getFavorites();
   const index = current.indexOf(eventId);
-  if (index >= 0) current.splice(index, 1);
-  else current.push(eventId);
+  if (index === -1) {
+    current.push(eventId);
+  } else {
+    current.splice(index, 1);
+  }
   localStorage.setItem(KEY, JSON.stringify(current));
 }
 
