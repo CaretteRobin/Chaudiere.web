@@ -1,5 +1,6 @@
 import { fetchCategories } from "@/api/categories";
 import { fetchEventsByCategory } from '@/api/events';
+import {formatDate} from "@/utils/dateUtils";
 import { loadTemplate, initializePartials } from '@/utils/templateUtils';
 
 export async function renderEventByCategory(app: HTMLElement, categoryId: string) {
@@ -20,9 +21,8 @@ export async function renderEventByCategory(app: HTMLElement, categoryId: string
 
     const eventsByCategoryTemplate = await loadTemplate('/src/templates/pages/eventByCategorie.hbs');
     const categHeaderTemplate = await loadTemplate('/src/components/categorieHeader.hbs');
-    const eventCardTemplate = await loadTemplate('/src/components/eventCard.hbs');
+    const eventCardTemplate = await loadTemplate('/src/components/eventCardCategorie.hbs');
     
-
     let events = [];
     try {
         events = await fetchEventsByCategory(categoryId);
@@ -38,6 +38,9 @@ export async function renderEventByCategory(app: HTMLElement, categoryId: string
         if (event.url) {
             // Couper les 4 premiers caractères de l'URL qui correspondent à "/api"
             event.url = event.url.substring(4);
+        }
+        if (event.start_date) {
+            event.start_date = formatDate(event.start_date);
         }
         return eventCardTemplate(event);
     }).join('');
