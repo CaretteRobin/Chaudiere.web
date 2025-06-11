@@ -36,7 +36,4 @@ export const renderEventDetail = async (app: HTMLElement, paramId: string | unde
 
 
     app.innerHTML = layoutTemplate({ content: pageContent });
-
-
-
 }
