@@ -1,4 +1,5 @@
 import type { Event } from '@/types/event';
+import {EventDetail} from "@/types/EventDetail";
 
 export async function fetchEvents(): Promise<Event[]> {
   const response = await fetch('http://localhost:8080/api/evenements');
@@ -11,4 +12,11 @@ export async function fetchEvents(): Promise<Event[]> {
   //     category: 'Musique',
   //   }
   // ]
+}
+
+export const fetchEventDetail = async (id: string): Promise<EventDetail> => {
+    const response = await fetch(`http://localhost:8080/api/evenements/${id}`);
+    if (!response.ok) throw new Error('Erreur de chargement des détails de l\'événement');
+    return response.json();
+
 }
