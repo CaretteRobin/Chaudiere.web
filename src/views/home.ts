@@ -9,7 +9,7 @@ export async function renderHome(app: HTMLElement) {
 
     const homePageTemplate = await loadTemplate('/src/templates/pages/home.hbs');
 
-    const pageContent = homePageTemplate({ eventsContent: '' });
+    const pageContent = homePageTemplate({ content: '' });
 
     app.innerHTML = layoutTemplate({ content: pageContent });
 
