@@ -44,6 +44,5 @@ export async function initializePartials(): Promise<void> {
     await Promise.all([
         registerPartial('header', '/src/components/header.hbs'),
         registerPartial('footer', '/src/components/footer.hbs'),
-        registerPartial('eventCard', '/src/components/eventCard.hbs')
     ]);
 }
