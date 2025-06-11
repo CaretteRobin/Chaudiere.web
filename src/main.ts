@@ -24,8 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function handleInitialRoute() {
-  // Au lieu d'enregistrer une route spécifique pour le chemin initial
-  // on utilise navigateTo qui utilisera les routes déjà enregistrées
   navigateTo(location.pathname);
 }
 

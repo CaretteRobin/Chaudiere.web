@@ -1,6 +1,8 @@
 export const renderEventDetail = (app: HTMLElement, paramId: string | undefined) => {
 
-    app.innerHTML = 'Event details : ' + (paramId ? paramId : 'No ID provided');
+    const pageContent = homePageTemplate({ eventsContent: eventsHtml });
+
+    app.innerHTML = layoutTemplate({ content: pageContent });
 
 
 
