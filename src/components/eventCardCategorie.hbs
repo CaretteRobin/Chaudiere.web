@@ -1,42 +1,27 @@
-{{!-- /src/components/eventCard.hbs --}}
-<div class="max-w-2xl mx-auto">
-  <div class="bg-white rounded-xl p-6 shadow-lg">
+<div class="flex flex-col items-end m-4 border border-gray-200 bg-white rounded-xl p-6 shadow-md">
+  <div class="flex flex-col gap-4 w-full mb-6">
     <!-- Titre -->
-    <h2 class="text-2xl font-bold mb-4">{{title}}</h2>
+    <h2 class="text-lg font-semibold text-purple-800">{{title}}</h2>
 
-    <div class="space-y-4">
-      <!-- Date de début -->
-      <div class="flex items-center">
-        <span class="font-semibold w-24">Date :</span>
-        <span>{{start_date}}</span>
-      </div>
+    <!-- Date -->
+    <div class="flex text-sm text-gray-700">
+      <span class="font-medium w-24">Date :</span>
+      <span>{{start_date}}</span>
+    </div>
 
-      <!-- Catégorie imbriquée -->
-      <div class="flex items-center">
-        <span class="font-semibold w-24">Catégorie :</span>
-        <span class="text-gray-600">{{category.name}}</span>
-      </div>
-
-      <!-- Lien "Voir plus" -->
-      <div class="flex items-center">
-        <a
-          href="/evenement/{{id}}"
-          class="text-indigo-600 hover:underline"
-          data-link
-        >
-          Voir plus
-        </a>
-      </div>
-
-      {{!-- (Optionnel) description si tu veux la réactiver plus tard) --}}
-      {{!--
-      {{#if description}}
-        <div class="mt-6">
-          <h3 class="font-semibold mb-2">Description :</h3>
-          <p class="text-gray-700">{{description}}</p>
-        </div>
-      {{/if}}
-      --}}
+    <!-- Catégorie -->
+    <div class="flex text-sm text-gray-700">
+      <span class="font-medium w-24">Catégorie :</span>
+      <span>{{category.name}}</span>
     </div>
   </div>
+
+  <!-- Bouton voir plus -->
+  <a
+    href="/evenements/{{id}}"
+    class="bg-purple-100 hover:bg-purple-200 text-purple-800 font-medium py-2 px-4 rounded-lg text-center shadow transition h-[min-content]"
+    data-link
+  >
+    Voir plus
+  </a>
 </div>
