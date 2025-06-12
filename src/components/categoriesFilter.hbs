@@ -1,18 +1,13 @@
-<form method="GET" action="/evenements" class="mb-6 text-center">
-  <input type="hidden" name="periode" value="{{selectedPeriod}}" />
-  <input type="hidden" name="sort" value="{{sortBy}}" />
-  <label for="category" class="mr-2 font-medium text-gray-700">Filtrer par catégorie :</label>
+<div class="mb-6 text-center">
+  <label for="category-select" class="mr-2 font-medium text-gray-700">Filtrer par catégorie :</label>
   <select
+    id="category-select"
     name="category"
-    id="category"
-    onchange="this.form.submit()"
     class="inline-block border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
   >
     <option value="">Tous</option>
     {{#each categories}}
-      <option value="{{name}}" {{#if selected}}selected{{/if}}>
-        {{name}}
-      </option>
+      <option value="{{name}}" {{#if selected}}selected{{/if}}>{{name}}</option>
     {{/each}}
   </select>
-</form>
+</div>

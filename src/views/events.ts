@@ -108,4 +108,22 @@ export async function renderEvent(app: HTMLElement) {
     const eventsPage = eventsPageTemplate({periodFilter: periodFilterHtml, categFilter: categoriesFilterHtml, eventSorted:sortByHtml, eventsContent: eventsHtml });
 
     app.innerHTML = layoutTemplate({ content: eventsPage });
+
+    const updateAndRender = () => {
+    const qp = new URLSearchParams(window.location.search);
+    const cat = (document.getElementById('category-select') as HTMLSelectElement).value;
+    const per = (document.getElementById('period-select')   as HTMLSelectElement).value;
+    const sor = (document.getElementById('sort-select')     as HTMLSelectElement).value;
+    if (cat) qp.set('category', cat); else qp.delete('category');
+    if (per) qp.set('periode', per); else qp.delete('periode');
+    if (sor) qp.set('sort', sor); else qp.delete('sort');
+    history.pushState(null, '', window.location.pathname + (qp.toString() ? `?${qp}` : ''));
+    renderEvent(app);
+  };
+
+  document.getElementById('category-select')?.addEventListener('change', updateAndRender);
+  document.getElementById('period-select')?.addEventListener('change',   updateAndRender);
+  document.getElementById('sort-select')?.addEventListener('change',     updateAndRender);
+
+  window.addEventListener('popstate', () => renderEvent(app));
 }

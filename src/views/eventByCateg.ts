@@ -36,6 +36,7 @@ export async function renderEventByCategory(app: HTMLElement, categoryId: string
     const categorieHeader = categHeaderTemplate(category);
     const eventsHtml = events.map(event => {
         if (event.url) {
+            // Couper les 4 premiers caractères de l'URL qui correspondent à "/api"
             event.url = event.url.substring(4);
         }
         if (event.start_date) {
@@ -43,7 +44,6 @@ export async function renderEventByCategory(app: HTMLElement, categoryId: string
         }
         return eventCardTemplate(event);
     }).join('');
-    console.log(eventsHtml);
 
     const eventsPage = eventsByCategoryTemplate({ categHeader: categorieHeader, eventsContent: eventsHtml });
     app.innerHTML = layoutTemplate({ content: eventsPage });
