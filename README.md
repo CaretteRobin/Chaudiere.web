@@ -47,13 +47,14 @@ L’application est développée en JavaScript moderne (ES Modules + Handlebars)
 ## Screenshots
 
 
+
 | Accueil      | Page Évenements           | Page Favoris            |
 |----------------------------|--------------------------|----------------------------|
-| ![home](./screenshots/home.png) | ![filter-tri](./screenshots/event.png) | ![cats](./screenshots/Favoris.png) |
+| ![home](https://github.com/user-attachments/assets/852b7cd4-c4ee-4287-ae8e-fdd369831ce3) | ![filter-tri](https://github.com/user-attachments/assets/b9b32d0f-2560-4b35-90a4-50685dede4e3) | ![fav](https://github.com/user-attachments/assets/76aa7efe-fc98-443e-8e2c-1f9d1cd9ac4f) |
 
-| Page catégories            | Page détail événement    |
-|----------------------------|--------------------------|
-| ![cats](./screenshots/categories.png) | ![detail](./screenshots/event-detail.png) |
+| Page catégories            |  Page des événements par catégorie  | Page détail événement    |
+|----------------------------|-------------------------------------|--------------------------|
+| ![cats](https://github.com/user-attachments/assets/0847b1a3-7574-4d55-9029-271d49924a96) | ![image](https://github.com/user-attachments/assets/a171b1e8-fe42-43f3-ae86-dc3391c95a9e) | ![detail](./screenshots/event-detail.png) |
 
 ---
 
