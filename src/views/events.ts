@@ -1,4 +1,4 @@
-import { fetchEvents } from '@/api/events';
+import { fetchEventsCurrent } from '@/api/events';
 import { loadTemplate, initializePartials } from '@/utils/templateUtils';
 
 export async function renderEvent(app: HTMLElement) {
@@ -7,7 +7,7 @@ export async function renderEvent(app: HTMLElement) {
 
     let events= [];
     try {
-        events = await fetchEvents();
+        events = await fetchEventsCurrent();
     } catch (error) {
         console.error('Erreur lors du chargement des événements:', error);
 
