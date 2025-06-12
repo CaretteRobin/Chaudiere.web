@@ -50,11 +50,11 @@ L’application est développée en JavaScript moderne (ES Modules + Handlebars)
 
 | Accueil      | Page Évenements           | Page Favoris            |
 |----------------------------|--------------------------|----------------------------|
-| ![home](https://github.com/user-attachments/assets/852b7cd4-c4ee-4287-ae8e-fdd369831ce3) | ![filter-tri](https://github.com/user-attachments/assets/b9b32d0f-2560-4b35-90a4-50685dede4e3) | ![fav](https://github.com/user-attachments/assets/76aa7efe-fc98-443e-8e2c-1f9d1cd9ac4f) |
+| ![home](https://github.com/user-attachments/assets/852b7cd4-c4ee-4287-ae8e-fdd369831ce3) | ![events](https://github.com/user-attachments/assets/6a97fd70-6f75-4989-a95b-dcd158eb1dfa) | ![image](https://github.com/user-attachments/assets/cae3307e-ac8f-4f1b-9b42-8fc81e5a5b0c) |
 
 | Page catégories            |  Page des événements par catégorie  | Page détail événement    |
 |----------------------------|-------------------------------------|--------------------------|
-| ![cats](https://github.com/user-attachments/assets/0847b1a3-7574-4d55-9029-271d49924a96) | ![image](https://github.com/user-attachments/assets/a171b1e8-fe42-43f3-ae86-dc3391c95a9e) | ![detail](./screenshots/event-detail.png) |
+| ![cats](https://github.com/user-attachments/assets/0847b1a3-7574-4d55-9029-271d49924a96) | ![image](https://github.com/user-attachments/assets/ef876e23-b29b-4000-bdf4-33c952051389) | ![detail](https://github.com/user-attachments/assets/bb831c2c-8628-43b2-b279-7e8905f17d17) |
 
 ---
 
