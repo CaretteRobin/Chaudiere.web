@@ -30,7 +30,8 @@ export async function renderFavorites(app: HTMLElement) {
                             title: eventDetail.title,
                             start_date: formatDate(eventDetail.start_date),
                             category: eventDetail.category.name,
-                            url: `/evenements/${eventDetail.id}`
+                            url: `/evenements/${eventDetail.id}`,
+                            image_url: eventDetail.images.url
                         }
 
                         return event;

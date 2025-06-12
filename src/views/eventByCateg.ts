@@ -2,6 +2,9 @@ import { fetchCategories } from "@/api/categories";
 import { fetchEventsByCategory } from '@/api/events';
 import {formatDate} from "@/utils/dateUtils";
 import { loadTemplate, initializePartials } from '@/utils/templateUtils';
+import {initFavoriteButtons} from "@/utils/favoritesUtils";
+import {Event} from "@/types/event";
+import {EventDetail} from "@/types/eventDetail";
 
 export async function renderEventByCategory(app: HTMLElement, categoryId: string) {
     // Initialiser les partiels
@@ -21,7 +24,7 @@ export async function renderEventByCategory(app: HTMLElement, categoryId: string
 
     const eventsByCategoryTemplate = await loadTemplate('/src/templates/pages/eventByCategorie.hbs');
     const categHeaderTemplate = await loadTemplate('/src/components/categorieHeader.hbs');
-    const eventCardTemplate = await loadTemplate('/src/components/eventCardCategorie.hbs');
+    const eventCardTemplate = await loadTemplate('/src/components/eventCard.hbs');
     
     let events = [];
     try {
@@ -34,17 +37,21 @@ export async function renderEventByCategory(app: HTMLElement, categoryId: string
     }
 
     const categorieHeader = categHeaderTemplate(category);
-    const eventsHtml = events.map(event => {
-        if (event.url) {
-            // Couper les 4 premiers caractères de l'URL qui correspondent à "/api"
-            event.url = event.url.substring(4);
+    const eventsHtml = events.map(eventDetail => {
+
+        const event: Event = {
+            id: eventDetail.id,
+            title: eventDetail.title,
+            start_date: formatDate(eventDetail.start_date),
+            category: eventDetail.category.name,
+            url: `/evenements/${eventDetail.id}`,
+            image_url: eventDetail.images.url
         }
-        if (event.start_date) {
-            event.start_date = formatDate(event.start_date);
-        }
+
         return eventCardTemplate(event);
     }).join('');
 
     const eventsPage = eventsByCategoryTemplate({ categHeader: categorieHeader, eventsContent: eventsHtml });
     app.innerHTML = layoutTemplate({ content: eventsPage });
+    initFavoriteButtons();
 }

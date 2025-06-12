@@ -20,7 +20,7 @@ export const fetchEventDetail = async (id: string): Promise<EventDetail> => {
     return response.json();
 }
 
-export async function fetchEventsByCategory(categoryId: string): Promise<Event[]> {
+export async function fetchEventsByCategory(categoryId: string): Promise<EventDetail[]> {
   const response = await fetch(`http://localhost:8080/api/categories/${categoryId}/evenements`);
   if (!response.ok) throw new Error('Erreur de chargement des événements par catégorie');
   return response.json();

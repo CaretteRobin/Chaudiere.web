@@ -20,5 +20,9 @@ export type EventDetail = {
         email: string;
         created_at: string;
     }
-    images: string[];
+    images: {
+        id: string;
+        url: string;
+        event_id: string;
+    };
 }

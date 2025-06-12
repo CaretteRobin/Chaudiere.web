@@ -16,17 +16,17 @@ registerRoute('/', () => renderHome(app));
 // Route dynamique avec paramètre
 registerRoute('/evenements', () => renderEvent(app));
 
-registerRoute('/evenements/{id}', (params) => {
+registerRoute('/evenements/{id}', async (params) => {
   const eventId: string | undefined = params?.id;
-  renderEventDetail(app, eventId);
+  await renderEventDetail(app, eventId);
 });
 
 registerRoute('/categories', () => renderCategories(app));
 
-registerRoute('/categories/{id}', (params) => {
+registerRoute('/categories/{id}', async (params) => {
   const categoryId: string | undefined = params?.id;
   if (categoryId) {
-    renderEventByCategory(app, categoryId);
+    await renderEventByCategory(app, categoryId);
   } else {
     console.error('Category ID is required');
   }

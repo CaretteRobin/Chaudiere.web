@@ -1,7 +1,7 @@
-import { fetchEventsByPeriod } from '@/api/events';
-import { fetchCategories } from '@/api/categories';
-import { loadTemplate, initializePartials } from '@/utils/templateUtils';
-import {initFavoriteButtons, isFavorite, toggleFavorite} from "@/utils/favoritesUtils";
+import {fetchEventsByPeriod} from '@/api/events';
+import {fetchCategories} from '@/api/categories';
+import {initializePartials, loadTemplate} from '@/utils/templateUtils';
+import {initFavoriteButtons} from "@/utils/favoritesUtils";
 import {formatDate} from "@/utils/dateUtils";
 
 export async function renderEvent(app: HTMLElement) {
@@ -16,17 +16,17 @@ export async function renderEvent(app: HTMLElement) {
     // Chargement des événements de la période sélectionnée
     const selectedPeriod = params.get('periode') as 'courante' | 'passee' | 'futur' ?? 'courante';
     // Chargement du type de trie souhaité
-    const sortBy = params.get('sort') as 'date-asc' | 'date-desc' | 'titre' | 'categorie' ??'date-asc';
+    const sortBy = params.get('sort') as 'date-asc' | 'date-desc' | 'titre' | 'categorie' ?? 'date-asc';
 
 
     // Chargement des événements et des catégories
-    let events= [];
+    let events = [];
     try {
         events = await fetchEventsByPeriod(selectedPeriod);
     } catch (error) {
         console.error('Erreur lors du chargement des événements:', error);
 
-        app.innerHTML = layoutTemplate({ content: '<p>Impossible de charger les événements.</p>' });
+        app.innerHTML = layoutTemplate({content: '<p>Impossible de charger les événements.</p>'});
         return;
     }
     let categories = [];
@@ -34,7 +34,7 @@ export async function renderEvent(app: HTMLElement) {
         categories = await fetchCategories();
     } catch (error) {
         console.error('Erreur lors du chargement des catégories:', error);
-        app.innerHTML = layoutTemplate({ content: '<p>Impossible de charger les catégories.</p>' });
+        app.innerHTML = layoutTemplate({content: '<p>Impossible de charger les catégories.</p>'});
         return;
     }
 
@@ -69,9 +69,9 @@ export async function renderEvent(app: HTMLElement) {
     // Génération du HTML
     const periodFilterHtml = periodFilterTemplate({
         periods: [
-            { value: 'courante', label: 'Courant', selected: selectedPeriod === 'courante' },
-            { value: 'passee',  label: 'Passés',  selected: selectedPeriod === 'passee'  },
-            { value: 'futur',   label: 'Futurs',  selected: selectedPeriod === 'futur'   },
+            {value: 'courante', label: 'Courant', selected: selectedPeriod === 'courante'},
+            {value: 'passee', label: 'Passés', selected: selectedPeriod === 'passee'},
+            {value: 'futur', label: 'Futurs', selected: selectedPeriod === 'futur'},
         ],
         selectedCategory,
         sortBy
@@ -89,10 +89,10 @@ export async function renderEvent(app: HTMLElement) {
 
     const sortByHtml = sortByTemplate({
         sort: [
-            { value: 'date-asc', label: 'Date croissante', selected: sortBy === 'date-asc' },
-            { value: 'date-desc', label: 'Date décroissante', selected: sortBy === 'date-desc' },
-            { value: 'titre', label: 'Titre', selected: sortBy === 'titre' },
-            { value: 'categorie', label: 'Catégorie', selected: sortBy === 'categorie' }
+            {value: 'date-asc', label: 'Date croissante', selected: sortBy === 'date-asc'},
+            {value: 'date-desc', label: 'Date décroissante', selected: sortBy === 'date-desc'},
+            {value: 'titre', label: 'Titre', selected: sortBy === 'titre'},
+            {value: 'categorie', label: 'Catégorie', selected: sortBy === 'categorie'}
         ],
         selectedCategory,
         selectedPeriod,
@@ -108,25 +108,30 @@ export async function renderEvent(app: HTMLElement) {
         return eventCardTemplate(event)
     }).join('');
 
-    const eventsPage = eventsPageTemplate({periodFilter: periodFilterHtml, categFilter: categoriesFilterHtml, eventSorted:sortByHtml, eventsContent: eventsHtml });
-    app.innerHTML = layoutTemplate({ content: eventsPage });
+    const eventsPage = eventsPageTemplate({
+        periodFilter: periodFilterHtml,
+        categFilter: categoriesFilterHtml,
+        eventSorted: sortByHtml,
+        eventsContent: eventsHtml
+    });
+    app.innerHTML = layoutTemplate({content: eventsPage});
 
     const updateAndRender = () => {
-    const qp = new URLSearchParams(window.location.search);
-    const cat = (document.getElementById('category-select') as HTMLSelectElement).value;
-    const per = (document.getElementById('period-select')   as HTMLSelectElement).value;
-    const sor = (document.getElementById('sort-select')     as HTMLSelectElement).value;
-    if (cat) qp.set('category', cat); else qp.delete('category');
-    if (per) qp.set('periode', per); else qp.delete('periode');
-    if (sor) qp.set('sort', sor); else qp.delete('sort');
-    history.pushState(null, '', window.location.pathname + (qp.toString() ? `?${qp}` : ''));
-    renderEvent(app);
-  };
+        const qp = new URLSearchParams(window.location.search);
+        const cat = (document.getElementById('category-select') as HTMLSelectElement).value;
+        const per = (document.getElementById('period-select') as HTMLSelectElement).value;
+        const sor = (document.getElementById('sort-select') as HTMLSelectElement).value;
+        if (cat) qp.set('category', cat); else qp.delete('category');
+        if (per) qp.set('periode', per); else qp.delete('periode');
+        if (sor) qp.set('sort', sor); else qp.delete('sort');
+        history.pushState(null, '', window.location.pathname + (qp.toString() ? `?${qp}` : ''));
+        renderEvent(app);
+    };
 
-  document.getElementById('category-select')?.addEventListener('change', updateAndRender);
-  document.getElementById('period-select')?.addEventListener('change',   updateAndRender);
-  document.getElementById('sort-select')?.addEventListener('change',     updateAndRender);
+    document.getElementById('category-select')?.addEventListener('change', updateAndRender);
+    document.getElementById('period-select')?.addEventListener('change', updateAndRender);
+    document.getElementById('sort-select')?.addEventListener('change', updateAndRender);
 
-  window.addEventListener('popstate', () => renderEvent(app));
+    window.addEventListener('popstate', () => renderEvent(app));
     initFavoriteButtons();
 }
