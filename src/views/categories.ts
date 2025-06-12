@@ -10,7 +10,7 @@ export async function renderCategories(container: HTMLElement) {
     const categories = await fetchCategories();
     
     // Charger les templates
-    const categoryCardTemplate = await loadTemplate('/src/components/categoryList.hbs');
+    const categoryCardTemplate = await loadTemplate('/src/components/categoryCard.hbs');
     const categoriesPageTemplate = await loadTemplate('/src/templates/pages/categories.hbs');
     const layoutTemplate = await loadTemplate('/src/templates/layout.hbs');
     
