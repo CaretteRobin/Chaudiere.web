@@ -36,9 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function handleInitialRoute() {
-  navigateTo(location.pathname);
+  const url = location.pathname + location.search;
+  navigateTo(url);
 }
-
 document.addEventListener('click', (e) => {
   const target = e.target as HTMLElement;
   if (target.matches('[data-link]')) {

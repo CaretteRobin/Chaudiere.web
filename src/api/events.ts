@@ -25,3 +25,9 @@ export async function fetchEventsByCategory(categoryId: string): Promise<Event[]
   if (!response.ok) throw new Error('Erreur de chargement des événements par catégorie');
   return response.json();
 }
+
+export async function fetchEventsCurrent(): Promise<Event[]> {
+  const response = await fetch('http://localhost:8080/api/evenements?periode=courante');
+  if (!response.ok) throw new Error('Erreur de chargement des événements actuels');
+  return response.json();
+}
