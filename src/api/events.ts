@@ -1,5 +1,5 @@
 import type { Event } from '@/types/event';
-import {EventDetail} from "@/types/EventDetail";
+import {EventDetail} from "@/types/eventDetail";
 
 export async function fetchEvents(): Promise<Event[]> {
   const response = await fetch('http://localhost:8080/api/evenements');

@@ -19,7 +19,7 @@
 │   ├── router
 │   │   └── index.ts
 │   ├── storage
-│   │   └── favorites.ts
+│   │   └── favoritesUtils.ts
 │   ├── templates
 │   │   ├── layout.hbs
 │   │   └── pages

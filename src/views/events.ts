@@ -1,12 +1,14 @@
 import { fetchEventsByPeriod } from '@/api/events';
 import { fetchCategories } from '@/api/categories';
 import { loadTemplate, initializePartials } from '@/utils/templateUtils';
+import {initFavoriteButtons, isFavorite, toggleFavorite} from "@/utils/favoritesUtils";
+import {formatDate} from "@/utils/dateUtils";
 
 export async function renderEvent(app: HTMLElement) {
     await initializePartials();
     const layoutTemplate = await loadTemplate('/src/templates/layout.hbs');
 
-    
+
     // Récupération de la catégorie sélectionnée depuis les paramètres de l'URL
     const params = new URLSearchParams(window.location.search);
     // Si la catégorie n'est pas spécifiée, on affiche tous les événements
@@ -64,7 +66,7 @@ export async function renderEvent(app: HTMLElement) {
     const periodFilterTemplate = await loadTemplate('/src/components/periodFilter.hbs');
     const sortByTemplate = await loadTemplate('/src/components/sortBy.hbs');
 
-    // Génération du HTML 
+    // Génération du HTML
     const periodFilterHtml = periodFilterTemplate({
         periods: [
             { value: 'courante', label: 'Courant', selected: selectedPeriod === 'courante' },
@@ -99,14 +101,14 @@ export async function renderEvent(app: HTMLElement) {
 
     const eventsHtml = filteredEvents.map(event => {
         if (event.url) {
+            event.id = event.url.split('/').pop() || undefined; // Extraire l'ID de l'URL
+            event.start_date = formatDate(event.start_date);
             event.url = event.url.substring(4);
         }
         return eventCardTemplate(event)
     }).join('');
 
-    // Génération de la page complète avec le layout
     const eventsPage = eventsPageTemplate({periodFilter: periodFilterHtml, categFilter: categoriesFilterHtml, eventSorted:sortByHtml, eventsContent: eventsHtml });
-
     app.innerHTML = layoutTemplate({ content: eventsPage });
 
     const updateAndRender = () => {
@@ -126,4 +128,5 @@ export async function renderEvent(app: HTMLElement) {
   document.getElementById('sort-select')?.addEventListener('change',     updateAndRender);
 
   window.addEventListener('popstate', () => renderEvent(app));
+    initFavoriteButtons();
 }
