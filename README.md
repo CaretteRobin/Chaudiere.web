@@ -1,4 +1,5 @@
 # LaChaudièreAgenda.web
+Membres: Carette Robin, OUDER Nathan, ANDRIEU Paul, BLONBOU Mathys, LAMBERT Valentino
 
 ## Présentation
 
