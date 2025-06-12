@@ -1,0 +1,16 @@
+<form method="GET" action="/evenements" class="mb-6 text-center">
+  <input type="hidden" name="category" value="{{selectedCategory}}" />
+  <label for="periode" class="mr-2 font-medium text-gray-700">Filtrer par période :</label>
+  <select 
+    name="periode" 
+     id="periode" 
+     onchange="this.form.submit()"
+     class="inline-block border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+  >
+    {{#each periods}}
+      <option value="{{value}}" {{#if selected}}selected{{/if}}>
+        {{label}}
+      </option>
+    {{/each}}
+  </select>
+</form>

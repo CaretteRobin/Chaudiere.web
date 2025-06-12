@@ -26,8 +26,8 @@ export async function fetchEventsByCategory(categoryId: string): Promise<Event[]
   return response.json();
 }
 
-export async function fetchEventsCurrent(): Promise<Event[]> {
-  const response = await fetch('http://localhost:8080/api/evenements?periode=courante');
-  if (!response.ok) throw new Error('Erreur de chargement des événements actuels');
+export async function fetchEventsByPeriod(period: 'courante' | 'passee' | 'futur'): Promise<Event[]> {
+  const response = await fetch(`http://localhost:8080/api/evenements?periode=${period}`);
+  if (!response.ok) throw new Error(`Erreur de chargement des événements (${period})`);
   return response.json();
 }
