@@ -9,4 +9,16 @@ export type EventDetail = {
     category_id: string;
     created_by: string;
     created_at: string;
+    category: {
+        id: string;
+        name: string;
+        description?: string;
+    }
+    author: {
+        id: string;
+        name: string;
+        email: string;
+        created_at: string;
+    }
+    images: string[];
 }
