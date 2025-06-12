@@ -11,8 +11,11 @@ export async function renderEvent(app: HTMLElement) {
     const params = new URLSearchParams(window.location.search);
     // Si la catégorie n'est pas spécifiée, on affiche tous les événements
     const selectedCategory = params.get('category') ?? '';
-    // Chargement des événements de la période courante
+    // Chargement des événements de la période sélectionnée
     const selectedPeriod = params.get('periode') as 'courante' | 'passee' | 'futur' ?? 'courante';
+    // Chargement du type de trie souhaité
+    const sortBy = params.get('sort') as 'date-asc' | 'date-desc' | 'titre' | 'categorie' ??'date-asc';
+
 
     // Chargement des événements et des catégories
     let events= [];
@@ -34,15 +37,32 @@ export async function renderEvent(app: HTMLElement) {
     }
 
     // Filtrage des événements par catégorie
-    const filteredEvents = selectedCategory
+    const filteredEventsCateg = selectedCategory
         ? events.filter(e => e.category === selectedCategory)
         : events;
+
+    // Tri des événements selon le critère choisi
+    const filteredEvents = filteredEventsCateg.sort((a, b) => {
+        switch (sortBy) {
+            case 'date-asc':
+                return new Date(a.start_date).getTime() - new Date(b.start_date).getTime();
+            case 'date-desc':
+                return new Date(b.start_date).getTime() - new Date(a.start_date).getTime();
+            case 'titre':
+                return a.title.localeCompare(b.title);
+            case 'categorie':
+                return a.category.localeCompare(b.category);
+            default:
+                return 0; // Pas de tri
+        }
+    });
 
     // Chargement des templates Handlebars
     const eventCardTemplate = await loadTemplate('/src/components/eventCard.hbs');
     const eventsPageTemplate = await loadTemplate('/src/templates/pages/events.hbs');
     const categoriesFilterTemplate = await loadTemplate('/src/components/categoriesFilter.hbs');
     const periodFilterTemplate = await loadTemplate('/src/components/periodFilter.hbs');
+    const sortByTemplate = await loadTemplate('/src/components/sortBy.hbs');
 
     // Génération du HTML 
     const periodFilterHtml = periodFilterTemplate({
@@ -51,7 +71,8 @@ export async function renderEvent(app: HTMLElement) {
             { value: 'passee',  label: 'Passés',  selected: selectedPeriod === 'passee'  },
             { value: 'futur',   label: 'Futurs',  selected: selectedPeriod === 'futur'   },
         ],
-        selectedCategory
+        selectedCategory,
+        sortBy
     });
 
     const categoriesFilterHtml = categoriesFilterTemplate({
@@ -60,7 +81,20 @@ export async function renderEvent(app: HTMLElement) {
             selected: category.name === selectedCategory
         })),
         selectedCategory,
-        selectedPeriod
+        selectedPeriod,
+        sortBy
+    });
+
+    const sortByHtml = sortByTemplate({
+        sort: [
+            { value: 'date-asc', label: 'Date croissante', selected: sortBy === 'date-asc' },
+            { value: 'date-desc', label: 'Date décroissante', selected: sortBy === 'date-desc' },
+            { value: 'titre', label: 'Titre', selected: sortBy === 'titre' },
+            { value: 'categorie', label: 'Catégorie', selected: sortBy === 'categorie' }
+        ],
+        selectedCategory,
+        selectedPeriod,
+        sortBy
     });
 
     const eventsHtml = filteredEvents.map(event => {
@@ -71,7 +105,7 @@ export async function renderEvent(app: HTMLElement) {
     }).join('');
 
     // Génération de la page complète avec le layout
-    const eventsPage = eventsPageTemplate({periodFilter: periodFilterHtml, categFilter: categoriesFilterHtml, eventsContent: eventsHtml });
+    const eventsPage = eventsPageTemplate({periodFilter: periodFilterHtml, categFilter: categoriesFilterHtml, eventSorted:sortByHtml, eventsContent: eventsHtml });
 
     app.innerHTML = layoutTemplate({ content: eventsPage });
 }
